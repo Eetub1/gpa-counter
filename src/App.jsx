@@ -81,12 +81,14 @@ const DrawCourses = ({ data, filters }) => {
     }
   })
 
+  filteredData.sort((a, b) => {
+    return a.name.trim().localeCompare(b.name.trim(), 'fi', {sensitivity: 'base'});
+  })
+
   return (
     <div>
-      
       <div id="gpaDiv">GPA: {(combined / points).toFixed(2)}</div>
       <div id="creditsDiv">Study credits: {pointsAll}</div>
-
       <div id="coursesContainer">
         {filteredData.map(course => (
           <DrawCourse course={course} key={course.name} />
