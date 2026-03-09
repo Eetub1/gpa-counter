@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import data from "../data"
+import { useState, useEffect } from 'react'
 
 function App() {
   const [showAll, setShowAll] = useState(true)
@@ -9,6 +7,19 @@ function App() {
   const [showProgramming, setShowProgramming] = useState(false)
   const [showCS, setShowCS] = useState(false)
   const [showOther, setShowOther] = useState(false)
+  const [data, setData] = useState([])
+
+  //this could be put in it's own file but this is really simple
+  useEffect(() => {
+    fetch("http://localhost:5000/api/courses")
+      .then(res => res.json())
+      .then(fetchedData => {
+        setData(fetchedData)
+      })
+      .catch(err => {
+        console.error("Virhe haettaessa dataa:", err)
+      })
+  }, [])
 
   const filters = {
     "all": showAll,

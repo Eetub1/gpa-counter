@@ -178,7 +178,28 @@ const data = [
         "grade": "hyv",
         "op": 2,
         "description": ["other"]
-    }
+    },
+
+
+    //tulevia kursseja
+    /*{
+        "name": "Web-käyttöliittymien ohjelmointi",
+        "grade": 5,
+        "op": 5,
+        "description": ["programming"]
+    },
+    {
+        "name": "Calculus 3",
+        "grade": 5,
+        "op": 5,
+        "description": ["math"]
+    },
+    {
+        "name": "Datan käsittelyn perusteet",
+        "grade": 5,
+        "op": 5,
+        "description": ["statistics", "CS"]
+    },*/
 ];
 
 export default data;
