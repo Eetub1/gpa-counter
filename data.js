@@ -1,3 +1,5 @@
+//todo toi description vois olla taulukko jotta voi olla useampia
+//kuvaajia
 const data = [
     {
         "name": "Johdatus matemaattiseen analyysiin 2",
@@ -9,7 +11,7 @@ const data = [
         "name": "Algoritmit 1",
         "grade": 5,
         "op": 5,
-        "description": "ohjelmointi ja algoritmiikka"
+        "description": "tietotekniikka"
     },
     {
         "name": "Datasta malliksi",
@@ -21,7 +23,7 @@ const data = [
         "name": "Yliopisto-opiskelu ja opintojen suunnittelu ITKY2020",
         "grade": "hyv",
         "op": 1,
-        "description": "orientaatio"
+        "description": "turha paska"
     },
     {
         "name": "Lineaarinen algebra ja geometria 1",
@@ -39,19 +41,19 @@ const data = [
         "name": "Tilastolliset ohjelmistot",
         "grade": "hyv",
         "op": 2,
-        "description": "tilastotiede ja työkalut"
+        "description": "tilastotiede"
     },
     {
         "name": "Tietokannat ja tiedonhallinta",
         "grade": 5,
         "op": 5,
-        "description": "tietokannat"
+        "description": "tietotekniikka"
     },
     {
         "name": "Tietoverkot",
         "grade": 5,
         "op": 5,
-        "description": "it-infra"
+        "description": "tietotekniikka"
     },
     {
         "name": "Todennäköisyysmatematiikka",
@@ -63,7 +65,7 @@ const data = [
         "name": "Ruotsin valmentava moduuli",
         "grade": "hyv",
         "op": 3,
-        "description": "kielet"
+        "description": "kieli"
     },
     {
         "name": "Ohjelmointi 2, C++",
@@ -81,19 +83,19 @@ const data = [
         "name": "Yliopisto-opiskelu ja opintojen suunnittelu 2010",
         "grade": "hyv",
         "op": 1,
-        "description": "orientaatio"
+        "description": "turha paska"
     },
     {
         "name": "Akateemiset tekstitaidot (TIETEK)",
         "grade": "hyv",
         "op": 3,
-        "description": "viestintä"
+        "description": "kieli"
     },
     {
         "name": "Yritys ja toimintaympäristö",
         "grade": 4,
         "op": 5,
-        "description": "liiketoiminta"
+        "description": "turha paska"
     },
     {
         "name": "Todistamisen ja päättelyn perusteet tekniikan alalle",
@@ -105,7 +107,7 @@ const data = [
         "name": "Web-julkaiseminen",
         "grade": 5,
         "op": 2,
-        "description": "ohjelmointi ja web"
+        "description": "ohjelmointi"
     },
     {
         "name": "Datan esittäminen ja analysointi",
@@ -117,7 +119,7 @@ const data = [
         "name": "Tietokoneen rakenne ja arkkitehtuuri",
         "grade": 5,
         "op": 3,
-        "description": "it-infra"
+        "description": "tietotekniikka"
     },
     {
         "name": "Tekniikan alan matematiikan valmistava kurssi",
@@ -129,7 +131,7 @@ const data = [
         "name": "Kvanttilaskennan aakkoset - osa B",
         "grade": "hyv",
         "op": 2,
-        "description": "kvanttilaskenta"
+        "description": "muu"
     },
     {
         "name": "Ohjelmointi 1",
@@ -141,43 +143,43 @@ const data = [
         "name": "Tekoälyn alkeet",
         "grade": "hyv",
         "op": 2,
-        "description": "tekoäly"
+        "description": "tietotekniikka"
     },
     {
         "name": "Ihminen tietoyhteiskunnassa",
         "grade": "hyv",
         "op": 5,
-        "description": "yhteiskuntatiede"
+        "description": "turha paska"
     },
     {
         "name": "Yliopisto-opiskelu ja opintojen suunnittelu ITKY100",
         "grade": "hyv",
         "op": 2,
-        "description": "orientaatio"
+        "description": "turha paska"
     },
     {
         "name": "Johdatus tietotekniikkaan",
         "grade": 5,
         "op": 3,
-        "description": "it-perusteet"
+        "description": "tietotekniikka"
     },
     {
         "name": "PW MOOC I: Johdatus planetaariseen hyvinvointiin",
         "grade": "hyv",
         "op": 1,
-        "description": "ekologia"
+        "description": "turha paska"
     },
     {
         "name": "Digitaalisen osaamisen perusteet",
         "grade": 5,
         "op": 3,
-        "description": "it-perusteet"
+        "description": "tietotekniikka"
     },
     {
         "name": "Kvanttilaskennan aakkoset - osa A",
         "grade": "hyv",
         "op": 2,
-        "description": "kvanttilaskenta"
+        "description": "muu"
     }
 ];
 
