@@ -27,11 +27,27 @@ body {
   justify-content: space-between;
 }
 
+#coursesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#gpaDiv {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#creditsDiv {
+  text-align: center;
+}
+
 .courseCard {
+  text-align: center;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
   margin: 16px;
-  width: 300px;
+  width: 200px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
