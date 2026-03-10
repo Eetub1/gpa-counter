@@ -89,3 +89,7 @@ body {
   color: red;
   font-size: 0.9em;
 }
+
+#addCourseButtonContainer {
+  margin-top: 10px;
+}

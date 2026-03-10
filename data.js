@@ -198,7 +198,7 @@ const data = [
         "name": "Datan käsittelyn perusteet",
         "grade": 5,
         "op": 5,
-        "description": ["statistics", "CS"]
+        "description": ["statistics", "programming"]
     },*/
 ];
 
