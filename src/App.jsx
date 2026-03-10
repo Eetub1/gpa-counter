@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
+
+import {getPassword} from "../secret.js"
 
 function App() {
   const [showAll, setShowAll] = useState(true)
@@ -20,7 +22,7 @@ function App() {
       .catch(err => {
         console.error("Error while fetching data:", err)
       })
-  }, [])
+  }, [data])
 
   const filters = {
     "all": showAll,
@@ -67,7 +69,7 @@ function App() {
         </div>
       </div>
 
-      <NewCourseForm/>
+      <NewCourseForm setData={setData}/>
 
       <DrawCourses data={data} filters={filters}/>
     </>
@@ -75,7 +77,7 @@ function App() {
 }
 
 
-const NewCourseForm = () => {
+const NewCourseForm = ({ setData}) => {
   const { handleSubmit, register, formState: { errors } } = useForm({
     defaultValues: {
       name: "",
@@ -84,16 +86,46 @@ const NewCourseForm = () => {
       math: false,
       statistics: false,
       programming: false,
-      CS: false,
+      cs: false,
       other: false
     }
   })
 
   const [showForm, setShowForm] = useState(false)
 
+  const openForm = () => {
+    if (window.prompt("Enter password to add a course") !== getPassword()) {
+      alert("Wrong password")
+      return
+    }
+    setShowForm(true)
+  }
+
   const onSubmit = (data) => {
     console.log(data)
     setShowForm(!showForm)
+
+    fetch("http://localhost:5000/api/courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: data.name,
+        grade: data.grade,
+        op: data.credits,
+        //we create an array based on which checkboxes were checked
+        description: Object.keys(data).filter(key => data[key] === true && key !== "name" && key !== "grade" && key !== "credits")
+      })
+    })
+    .then(res => res.json())
+    .then(responseData => {
+      console.log("Course added successfully:", responseData)
+      setData(prevData => [...prevData, responseData])
+    })
+    .catch(err => {
+      console.error("Error while adding course:", err)
+    })
   }
 
   if (showForm) return (
@@ -136,7 +168,7 @@ const NewCourseForm = () => {
 
         <div className="formCheckboxRow">
           <label htmlFor="csInput">Computer Science</label>
-          <input type="checkbox" id="csInput" {...register("CS")}></input>
+          <input type="checkbox" id="csInput" {...register("cs")}></input>
         </div>
 
         <div className="formCheckboxRow">
@@ -152,7 +184,7 @@ const NewCourseForm = () => {
 
   return (
     <div>
-      <button onClick={() => setShowForm(!showForm)}>Add a course?</button>
+      <button onClick={openForm}>Add a course?</button>
     </div>
   )
 }
