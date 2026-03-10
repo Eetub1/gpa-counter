@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useForm } from "react-hook-form"
 
 function App() {
   const [showAll, setShowAll] = useState(true)
@@ -17,7 +18,7 @@ function App() {
         setData(fetchedData)
       })
       .catch(err => {
-        console.error("Virhe haettaessa dataa:", err)
+        console.error("Error while fetching data:", err)
       })
   }, [])
 
@@ -66,10 +67,96 @@ function App() {
         </div>
       </div>
 
+      <NewCourseForm/>
+
       <DrawCourses data={data} filters={filters}/>
     </>
   )
 }
+
+
+const NewCourseForm = () => {
+  const { handleSubmit, register, formState: { errors } } = useForm({
+    defaultValues: {
+      name: "",
+      grade: "",
+      credits: "",
+      math: false,
+      statistics: false,
+      programming: false,
+      CS: false,
+      other: false
+    }
+  })
+
+  const [showForm, setShowForm] = useState(false)
+
+  const onSubmit = (data) => {
+    console.log(data)
+    setShowForm(!showForm)
+  }
+
+  if (showForm) return (
+    <form onSubmit={handleSubmit(onSubmit)} id="newCourseForm">
+
+      <div className="formInputContainer">
+        <label htmlFor="courseName">Course name</label>
+        <input id="courseName" {...register("name", { required: "Course name is required" })}></input>
+      </div>
+      {errors.name && <div className="errorText">{errors.name.message}</div>}
+
+      <div className="formInputContainer">
+        <label htmlFor="courseGrade">Grade</label>
+        <input id="courseGrade" {...register("grade", { required: "Grade is required" })}></input>
+      </div>
+      {errors.grade && <div className="errorText">{errors.grade.message}</div>}
+
+      <div className="formInputContainer">
+        <label htmlFor="courseCredits">Credits</label>
+        <input id="courseCredits" {...register("credits", { required: "Credits is required" })}></input>
+      </div>
+      {errors.credits && <div className="errorText">{errors.credits.message}</div>}
+
+      <div id="formCheckboxContainer">
+
+        <div className="formCheckboxRow">
+          <label htmlFor="mathInput">Mathemathics</label>
+          <input type="checkbox" id="mathInput" {...register("math")}></input>
+        </div>
+
+        <div className="formCheckboxRow">
+          <label htmlFor="statsInput">Statistics</label>
+          <input type="checkbox" id="statsInput" {...register("statistics")}></input>
+        </div>
+
+        <div className="formCheckboxRow">
+          <label htmlFor="progInput">Programming</label>
+          <input type="checkbox" id="progInput" {...register("programming")}></input>
+        </div>
+
+        <div className="formCheckboxRow">
+          <label htmlFor="csInput">Computer Science</label>
+          <input type="checkbox" id="csInput" {...register("CS")}></input>
+        </div>
+
+        <div className="formCheckboxRow">
+          <label htmlFor="otherInput">Other</label>
+          <input type="checkbox" id="otherInput" {...register("other")}></input>
+        </div>
+
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  )
+
+  return (
+    <div>
+      <button onClick={() => setShowForm(!showForm)}>Add a course?</button>
+    </div>
+  )
+}
+
 
 const DrawCourses = ({ data, filters }) => {
   let combined = 0
@@ -97,7 +184,7 @@ const DrawCourses = ({ data, filters }) => {
   })
 
   return (
-    <div>
+    <div id="mainContent">
       <div id="gpaDiv">GPA: {(combined / points).toFixed(2)}</div>
       <div id="creditsDiv">Study credits: {pointsAll}</div>
       <div id="coursesContainer">
