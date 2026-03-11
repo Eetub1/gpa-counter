@@ -15,7 +15,7 @@ function App() {
 
   //this could be put in it's own file but this is really simple
   useEffect(() => {
-    fetch("http://localhost:5000/api/courses")
+    fetch("https://gpa-counter-backend.onrender.com/api/courses")
       .then(res => res.json())
       .then(fetchedData => {
         setData(fetchedData)

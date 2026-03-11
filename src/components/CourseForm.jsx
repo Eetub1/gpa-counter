@@ -22,7 +22,7 @@ const CourseForm = ({ setData}) => {
     console.log(data)
     setShowForm(!showForm)
 
-    fetch("http://localhost:5000/api/courses", {
+    fetch("https://gpa-counter-backend.onrender.com/api/courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
