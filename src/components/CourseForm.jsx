@@ -22,8 +22,9 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
         data[key] === true && !["name", "grade", "credits", "password"].includes(key)
       )
     }
+    //ttp://localhost:5000/api/courses/${courseToEdit}
     //https://gpa-counter-backend.onrender.com/api/courses/${courseToEdit}
-    fetch(`http://localhost:5000/api/courses/${courseToEdit}`, {
+    fetch(`https://gpa-counter-backend.onrender.com/api/courses/${courseToEdit}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
