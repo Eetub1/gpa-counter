@@ -2,7 +2,8 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 const CourseForm = ({ setData}) => {
-  const { handleSubmit, register, formState: { errors } } = useForm({
+
+  const { handleSubmit, register, reset, formState: { errors } } = useForm({
     defaultValues: {
       password: "",
       name: "",
@@ -17,6 +18,11 @@ const CourseForm = ({ setData}) => {
   })
 
   const [showForm, setShowForm] = useState(false)
+
+  const resetAndCloseForm = () => {
+    setShowForm(false)
+    reset()
+  }
 
   const onSubmit = (data) => {
     console.log(data)
@@ -52,6 +58,8 @@ const CourseForm = ({ setData}) => {
 
   if (showForm) return (
     <form onSubmit={handleSubmit(onSubmit)} id="newCourseForm">
+
+      <p onClick={resetAndCloseForm} id="closeForm">x</p>
 
       <div className="formInputContainer">
         <label htmlFor="passwordInput">Secret password</label>

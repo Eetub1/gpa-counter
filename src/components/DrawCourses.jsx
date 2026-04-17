@@ -37,8 +37,13 @@ const DrawCourses = ({ data, filters }) => {
 }
 
 const DrawCourse = ({ course }) => {
+
+  const handleClick = () => {
+    console.log("Course details:", course)
+  }
+
   return (
-    <div className="courseCard">
+    <div onClick={handleClick} className="courseCard">
       <p>{course.name}</p>
       <p>grade: {course.grade}</p>
       <p>credits: {course.op}</p>

@@ -56,6 +56,10 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.courseCard:hover {
+  cursor: pointer;
+}
+
 #newCourseForm {
   display: flex;
   flex-direction: column;
@@ -92,4 +96,13 @@ body {
 
 #addCourseButtonContainer {
   margin-top: 10px;
+}
+
+#closeForm {
+  color: red;
+  margin: 0 0 6px auto;
+}
+
+#closeForm:hover {
+  cursor: pointer;
 }
