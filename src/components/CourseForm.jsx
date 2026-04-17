@@ -1,32 +1,61 @@
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-
-const CourseForm = ({ setData}) => {
-
-  const { handleSubmit, register, reset, formState: { errors } } = useForm({
-    defaultValues: {
-      password: "",
-      name: "",
-      grade: "",
-      credits: "",
-      math: false,
-      statistics: false,
-      programming: false,
-      cs: false,
-      other: false
-    }
-  })
-
-  const [showForm, setShowForm] = useState(false)
-
+const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, setShowForm, showEditButton, setShowEditButton, courseToEdit }) => {
   const resetAndCloseForm = () => {
+    reset()
     setShowForm(false)
+  }
+
+  const handleEdits = (data) => {
+    //jos tänne tultiin niin lomakkeen tiedot ovat validit
+
+    //poistetaan aiempi kurssi ja lisätään uusi tilalle jos tiedot ovat validit
+    console.log("Ollaan muuttamassa tätä kurssia: ", data.name)
+    console.log("Uudet tiedot: ", data)
+    //setShowEditButton(false)
+    //setShowForm(false)
+
+    const updatedCourse = {
+      password: data.password,
+      name: data.name,
+      grade: data.grade,
+      op: data.credits,
+      description: Object.keys(data).filter(key => 
+        data[key] === true && !["name", "grade", "credits", "password"].includes(key)
+      )
+    }
+    //https://gpa-counter-backend.onrender.com/api/courses/${courseToEdit}
+    fetch(`http://localhost:5000/api/courses/${courseToEdit}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(updatedCourse)
+    })
+    .then(res => res.json())
+    .then(responseData => {
+      if (responseData.error) {
+        console.error("Error from server:", responseData.error)
+        return
+      }
+      console.log("Course updated successfully:", responseData)
+      setData(prevData => prevData.map(course => course._id === courseToEdit ? responseData : course))
+      setShowEditButton(false)
+      setShowForm(false)
+      reset()
+    })
+    .catch(err => {
+      console.error("Error while updating course:", err)
+    })
+  }
+
+  const showAddForm = () => {
+    setShowForm(true)
     reset()
   }
 
   const onSubmit = (data) => {
     console.log(data)
     setShowForm(!showForm)
+    reset()
 
     fetch("https://gpa-counter-backend.onrender.com/api/courses", {
       method: "POST",
@@ -117,13 +146,14 @@ const CourseForm = ({ setData}) => {
 
       </div>
 
-      <button type="submit">Submit</button>
+      <button style={{ "display": showEditButton ? "none" : "block" }} type="submit">Submit</button>
+      <button style={{ "display": showEditButton ? "block" : "none" }} type="button" onClick={handleSubmit(handleEdits)}>Confirm changes</button>
     </form>
   )
 
   return (
     <div id="addCourseButtonContainer">
-      <button onClick={() => setShowForm(true)}>Add a course?</button>
+      <button onClick={() => showAddForm()}>Add a course?</button>
     </div>
   )
 }

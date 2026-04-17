@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useForm } from "react-hook-form"
 
 import DrawCourses from "./components/DrawCourses"
 import CourseForm from "./components/CourseForm"
@@ -12,6 +13,25 @@ function App() {
   const [showCS, setShowCS] = useState(false)
   const [showOther, setShowOther] = useState(false)
   const [data, setData] = useState([])
+
+  const [showForm, setShowForm] = useState(false)
+  const [showEditButton, setShowEditButton] = useState(false)
+
+  const [courseToEdit, setCourseToEdit] = useState(null)
+
+  const { handleSubmit, register, reset, formState: { errors } } = useForm({
+    defaultValues: {
+      password: "",
+      name: "",
+      grade: "",
+      credits: "",
+      math: false,
+      statistics: false,
+      programming: false,
+      cs: false,
+      other: false
+    }
+  })
 
   //this could be put in it's own file but this is really simple
   useEffect(() => {
@@ -70,8 +90,28 @@ function App() {
         </div>
       </div>
 
-      <CourseForm setData={setData}/>
-      <DrawCourses data={data} filters={filters}/>
+      <CourseForm 
+        setData={setData} 
+        handleSubmit={handleSubmit} 
+        register={register} 
+        reset={reset} 
+        errors={errors} 
+        showForm={showForm} 
+        setShowForm={setShowForm}
+        showEditButton={showEditButton}
+        setShowEditButton={setShowEditButton}
+        courseToEdit={courseToEdit}
+      />
+      <DrawCourses 
+        data={data} 
+        filters={filters} 
+        showForm={showForm} 
+        setShowForm={setShowForm} 
+        setShowEditButton={setShowEditButton}
+        reset={reset}
+        courseToEdit={courseToEdit}
+        setCourseToEdit={setCourseToEdit}
+      />
     </>
   )
 }

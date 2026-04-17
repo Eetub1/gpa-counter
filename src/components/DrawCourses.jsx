@@ -1,4 +1,4 @@
-const DrawCourses = ({ data, filters }) => {
+const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, courseToEdit, setCourseToEdit }) => {
   let combined = 0
   let points = 0
   let pointsAll = 0
@@ -29,17 +29,38 @@ const DrawCourses = ({ data, filters }) => {
       <div id="creditsDiv">Study credits: {pointsAll}</div>
       <div id="coursesContainer">
         {filteredData.map(course => (
-          <DrawCourse course={course} key={course.name} />
+          <DrawCourse 
+            course={course} 
+            key={course.name} 
+            setShowForm={setShowForm} 
+            setShowEditButton={setShowEditButton} 
+            reset={reset}
+            courseToEdit={courseToEdit}
+            setCourseToEdit={setCourseToEdit}
+          />
         ))}
       </div>
     </div>
   )
 }
 
-const DrawCourse = ({ course }) => {
-
+const DrawCourse = ({ course, setShowForm, setShowEditButton, reset, courseToEdit, setCourseToEdit }) => {
+  
   const handleClick = () => {
-    console.log("Course details:", course)
+    setShowForm(true)
+    setShowEditButton(true)
+    setCourseToEdit(course._id)
+
+    reset({
+      name: course.name,
+      grade: course.grade,
+      credits: course.op,
+      math: course.description.includes("math"),
+      statistics: course.description.includes("statistics"),
+      programming: course.description.includes("programming"),
+      cs: course.description.includes("CS"),
+      other: course.description.includes("other"),
+    })
   }
 
   return (
