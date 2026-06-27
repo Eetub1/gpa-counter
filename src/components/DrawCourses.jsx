@@ -1,4 +1,4 @@
-const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, courseToEdit, setCourseToEdit }) => {
+const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, setCourseToEdit }) => {
   let combined = 0
   let points = 0
   let pointsAll = 0
@@ -8,7 +8,9 @@ const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, cou
     return course.description.some(desc => filters[desc])
   })
 
-  if (filteredData.length === 0) return <p>No courses found</p>
+  if (filteredData.length === 0) return (
+    <h3>No courses found. Note that it takes a while for the backend to activate!</h3>
+  )
 
   filteredData.forEach(course => {
     pointsAll += course.op
@@ -35,7 +37,6 @@ const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, cou
             setShowForm={setShowForm} 
             setShowEditButton={setShowEditButton} 
             reset={reset}
-            courseToEdit={courseToEdit}
             setCourseToEdit={setCourseToEdit}
           />
         ))}
@@ -44,7 +45,7 @@ const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, cou
   )
 }
 
-const DrawCourse = ({ course, setShowForm, setShowEditButton, reset, courseToEdit, setCourseToEdit }) => {
+const DrawCourse = ({ course, setShowForm, setShowEditButton, reset, setCourseToEdit }) => {
   
   const handleClick = () => {
     setShowForm(true)

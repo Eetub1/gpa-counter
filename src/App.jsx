@@ -109,7 +109,6 @@ function App() {
         setShowForm={setShowForm} 
         setShowEditButton={setShowEditButton}
         reset={reset}
-        courseToEdit={courseToEdit}
         setCourseToEdit={setCourseToEdit}
       />
     </>

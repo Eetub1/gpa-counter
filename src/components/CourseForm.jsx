@@ -5,11 +5,9 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
   }
 
   const handleEdits = (data) => {
-    //jos tänne tultiin niin lomakkeen tiedot ovat validit
-
     //poistetaan aiempi kurssi ja lisätään uusi tilalle jos tiedot ovat validit
-    console.log("Ollaan muuttamassa tätä kurssia: ", data.name)
-    console.log("Uudet tiedot: ", data)
+    //console.log("Ollaan muuttamassa tätä kurssia: ", data.name)
+    //console.log("Uudet tiedot: ", data)
     //setShowEditButton(false)
     //setShowForm(false)
 
