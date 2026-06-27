@@ -1,76 +1,76 @@
 const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, setCourseToEdit }) => {
-  let combined = 0
-  let points = 0
-  let pointsAll = 0
+    let combined = 0
+    let points = 0
+    let pointsAll = 0
 
-  const filteredData = data.filter(course => {
-    if (filters.all) return true
-    return course.description.some(desc => filters[desc])
-  })
+    const filteredData = data.filter(course => {
+        if (filters.all) return true
+        return course.description.some(desc => filters[desc])
+    })
 
-  if (filteredData.length === 0) return (
-    <h3>No courses found. Note that it takes a while for the backend to activate!</h3>
-  )
+    if (filteredData.length === 0) return (
+        <h3>No courses found. Note that it takes a while for the backend to activate!</h3>
+    )
 
-  filteredData.forEach(course => {
-    pointsAll += course.op
+    filteredData.forEach(course => {
+        pointsAll += course.op
 
-    if (Number(course.grade)) {
-      combined += course.grade * course.op
-      points += course.op
-    }
-  })
+        if (Number(course.grade)) {
+            combined += course.grade * course.op
+            points += course.op
+        }
+    })
 
-  filteredData.sort((a, b) => {
-    return a.name.trim().localeCompare(b.name.trim(), 'fi', {sensitivity: 'base'});
-  })
+    filteredData.sort((a, b) => {
+        return a.name.trim().localeCompare(b.name.trim(), 'fi', {sensitivity: 'base'});
+    })
 
-  return (
-    <div id="mainContent">
-      <div id="gpaDiv">GPA: {(combined / points).toFixed(2)}</div>
-      <div id="creditsDiv">Study credits: {pointsAll}</div>
-      <div id="coursesContainer">
-        {filteredData.map(course => (
-          <DrawCourse 
-            course={course} 
-            key={course.name} 
-            setShowForm={setShowForm} 
-            setShowEditButton={setShowEditButton} 
-            reset={reset}
-            setCourseToEdit={setCourseToEdit}
-          />
-        ))}
-      </div>
-    </div>
-  )
+    return (
+        <div id="mainContent">
+            <div id="gpaDiv">GPA: {(combined / points).toFixed(2)}</div>
+            <div id="creditsDiv">Study credits: {pointsAll}</div>
+            <div id="coursesContainer">
+                {filteredData.map(course => (
+                    <DrawCourse 
+                        course={course} 
+                        key={course._id} 
+                        setShowForm={setShowForm} 
+                        setShowEditButton={setShowEditButton} 
+                        reset={reset}
+                        setCourseToEdit={setCourseToEdit}
+                    />
+                ))}
+            </div>
+        </div>
+    )
 }
 
 const DrawCourse = ({ course, setShowForm, setShowEditButton, reset, setCourseToEdit }) => {
   
-  const handleClick = () => {
-    setShowForm(true)
-    setShowEditButton(true)
-    setCourseToEdit(course._id)
+    const handleClick = () => {
+        setShowForm(true)
+        setShowEditButton(true)
+        setCourseToEdit(course._id)
 
-    reset({
-      name: course.name,
-      grade: course.grade,
-      credits: course.op,
-      math: course.description.includes("math"),
-      statistics: course.description.includes("statistics"),
-      programming: course.description.includes("programming"),
-      cs: course.description.includes("CS"),
-      other: course.description.includes("other"),
-    })
-  }
+        reset({
+            name: course.name,
+            grade: course.grade,
+            credits: course.op,
+            math: course.description.includes("math"),
+            statistics: course.description.includes("statistics"),
+            programming: course.description.includes("programming"),
+            cs: course.description.includes("cs"),
+            other: course.description.includes("other"),
+        })
+    }
 
-  return (
-    <div onClick={handleClick} className="courseCard">
-      <p>{course.name}</p>
-      <p>grade: {course.grade}</p>
-      <p>credits: {course.op}</p>
-    </div>
-  )
+    return (
+        <div onClick={handleClick} className="courseCard">
+            <p>{course.name}</p>
+            <p>grade: {course.grade}</p>
+            <p>credits: {course.op}</p>
+        </div>
+    )
 }
 
 export default DrawCourses
