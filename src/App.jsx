@@ -19,6 +19,8 @@ function App() {
 
     const [courseToEdit, setCourseToEdit] = useState(null)
 
+    const [searchInput, setSearchInput] = useState("")
+
     const { handleSubmit, register, reset, formState: { errors } } = useForm({
         defaultValues: {
             password: "",
@@ -53,9 +55,14 @@ function App() {
         "other": showOther
     }
 
+    const filteredData = searchInput
+        ? data.filter(course => course.name.trim().toLowerCase().includes(searchInput.trim().toLowerCase()))
+        : data
+    
+
     return (
         <>
-            <Header/>
+            <Header setSearchInput={setSearchInput}/>
 
             <div id="checkboxContainer">
                 <div className="checkboxRow">
@@ -102,7 +109,7 @@ function App() {
                 courseToEdit={courseToEdit}
             />
             <DrawCourses 
-                data={data} 
+                data={filteredData} 
                 filters={filters} 
                 showForm={showForm} 
                 setShowForm={setShowForm} 
