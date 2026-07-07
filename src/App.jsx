@@ -16,9 +16,7 @@ function App() {
 
     const [showForm, setShowForm] = useState(false)
     const [showEditButton, setShowEditButton] = useState(false)
-
     const [courseToEdit, setCourseToEdit] = useState(null)
-
     const [searchInput, setSearchInput] = useState("")
 
     const { handleSubmit, register, reset, formState: { errors } } = useForm({

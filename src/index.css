@@ -10,6 +10,11 @@ body {
   margin: 0;
 }
 
+button {
+  padding: 3px;
+  border-radius: 7px;
+}
+
 #root {
   display: flex;
   flex-direction: column;

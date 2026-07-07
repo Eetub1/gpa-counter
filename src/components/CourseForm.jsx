@@ -2,10 +2,11 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
     const resetAndCloseForm = () => {
         reset()
         setShowForm(false)
+        setShowEditButton(false)
     }
 
-    const handleEdits = (data) => {
 
+    const handleEdits = data => {
         const updatedCourse = {
             password: data.password,
             name: data.name,
@@ -29,7 +30,6 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
                     console.error("Error from server:", responseData.error)
                     return
                 }
-                // console.log("Course updated successfully:", responseData)
                 setData(prevData => prevData.map(course => course._id === courseToEdit ? responseData : course))
                 setShowEditButton(false)
                 setShowForm(false)
@@ -40,16 +40,39 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
             })
     }
 
+
     const showAddForm = () => {
         setShowForm(true)
         reset()
     }
 
-    const onSubmit = (data) => {
-    // console.log(data)
-        setShowForm(!showForm)
-        reset()
 
+    const handleDelete = data => {
+        fetch(`https://gpa-counter-backend.onrender.com/api/courses/${courseToEdit}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ password: data.password })
+        })
+            .then(res => res.json())
+            .then(responseData => {
+                if (responseData.error) {
+                    console.error("Error from server:", responseData.error)
+                    return
+                }
+                setData(prevData => prevData.filter(course => course._id !== courseToEdit))
+                setShowEditButton(false)
+                setShowForm(false)
+                reset()
+            })
+            .catch(err => {
+                console.error("Error while deleting course:", err)
+            })
+    }
+
+
+    const onSubmit = (data) => {
         fetch("https://gpa-counter-backend.onrender.com/api/courses", {
             method: "POST",
             headers: {
@@ -70,8 +93,9 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
                     console.error("Error from server:", responseData.error)
                     return
                 }
-                // console.log("Course added successfully:", responseData)
                 setData(prevData => [...prevData, responseData])
+                setShowForm(!showForm)
+                reset()
             })
             .catch(err => {
                 console.error("Error while adding course:", err)
@@ -79,7 +103,7 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
     }
 
     if (showForm) return (
-        <form onSubmit={handleSubmit(onSubmit)} id="newCourseForm">
+        <form id="newCourseForm">
 
             <p onClick={resetAndCloseForm} id="closeForm">x</p>
 
@@ -140,8 +164,9 @@ const CourseForm = ({ setData, handleSubmit, register, reset, errors, showForm, 
 
             </div>
 
-            <button style={{ "display": showEditButton ? "none" : "block" }} type="submit">Submit</button>
+            <button style={{ "display": showEditButton ? "none" : "block" }} type="button" onClick={handleSubmit(onSubmit)}>Submit</button>
             <button style={{ "display": showEditButton ? "block" : "none" }} type="button" onClick={handleSubmit(handleEdits)}>Confirm changes</button>
+            <button style={{ "display": showEditButton ? "block" : "none" }} type="button" onClick={handleSubmit(handleDelete)}>Delete course?</button>
         </form>
     )
 

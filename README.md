@@ -1,3 +1,3 @@
-## GPA Counter 
+## GPA Counter Frontend
 
-A super basic project just to show what studies I have completed.
+Made with React

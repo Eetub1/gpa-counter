@@ -27,7 +27,7 @@ const DrawCourses = ({ data, filters, setShowForm, setShowEditButton, reset, set
 
     return (
         <div id="mainContent">
-            <div id="gpaDiv">GPA: {(combined / points).toFixed(2)}</div>
+            <div id="gpaDiv">GPA: {points > 0 ? (combined / points).toFixed(2) : "–"}</div>
             <div id="creditsDiv">Study credits: {pointsAll}</div>
             <div id="coursesContainer">
                 {filteredData.map(course => (
@@ -51,6 +51,11 @@ const DrawCourse = ({ course, setShowForm, setShowEditButton, reset, setCourseTo
         setShowForm(true)
         setShowEditButton(true)
         setCourseToEdit(course._id)
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        })
 
         reset({
             name: course.name,
